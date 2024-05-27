@@ -17,7 +17,7 @@ type Scroll = {
 
 const AnimeDetail = () => {
   const url: Location = useLocation();
-  const { state } = url;
+  const { id } = url.state;
   const navigate = useNavigate();
 
   const [scrollData, setScrollData] = useState<Scroll>({
@@ -68,14 +68,14 @@ const AnimeDetail = () => {
 
   useEffect(() => {
     const request1 = fetch(
-      `https://api.jikan.moe/v4/anime/${state}/characters`
+      `https://api.jikan.moe/v4/anime/${id}/characters`
     ).then((res) => {
       if (res.status < 500 && res.status >= 400)
         console.log("ERROR ON THE RESPONSE CHARACTERS");
       if (!res.ok) return;
       return res.json();
     });
-    const request2 = fetch(`https://api.jikan.moe/v4/anime/${state}/full`).then(
+    const request2 = fetch(`https://api.jikan.moe/v4/anime/${id}/full`).then(
       (res) => {
         if (res.status < 500 && res.status >= 400)
           console.log("ERROR ON THE RESPONSE ANIME FULL");

@@ -261,13 +261,17 @@ export interface Theme {
 
 // type useLocation
 
-export interface Location<State = number> extends Path {
+export interface Location<State = IDLocation> extends Path {
   state: State;
   key: string;
 }
 
-interface Path {
+type IDLocation = {
+  id: number;
+};
+
+type Path = {
   pathname: string;
   search: string;
   hash: string;
-}
+};
