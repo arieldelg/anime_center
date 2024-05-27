@@ -1,19 +1,7 @@
-import { useLocation, useNavigate } from "react-router-dom";
-import {
-  AnimeFULL,
-  CharacterAnime,
-  Data,
-  DataAnimeFULL,
-  TAnimeGenerics,
-} from "../lib/types";
-import { useCallback, useEffect, useState } from "react";
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ArrowLeftIcon,
-  ChevronRightIcon,
-} from "@heroicons/react/24/solid";
-
+import { useLocation, useNavigate, Link } from "react-router-dom";
+import { AnimeFULL, CharacterAnime, Data, DataAnimeFULL } from "../lib/types";
+import { useEffect, useState } from "react";
+import { ChevronDownIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import "./AnimeDetail.css";
 
 interface Location<State = number> extends Path {
@@ -64,7 +52,6 @@ const AnimeDetail = () => {
   }, []);
 
   useEffect(() => {
-    console.log(scrollData);
     if (scrollData.y > scrollData.yLast) {
       if (scrollData.y > 700) {
         setTest(1);
@@ -130,36 +117,7 @@ const AnimeDetail = () => {
   };
 
   const titles = "text-xl font-bold";
-  // const handleScrollShadow = () => {
-  //   const stylePlease = document.getElementById("scrollShadow");
-  //   if (stylePlease !== null)
-  //     // console.log(stylePlease?.style);
-  //     stylePlease.style.backgroundImage = `
-  //   linear-gradient(
-  //     to bottom,
-  //     rgba(0, 0, 0, 0.85) 100%,
-  //     rgba(0, 0, 0, 0)
-  //   );
-  //   `;
-  // let classScrollShadow: string = "";
-  // console.log("sdad");
-  // if (scrollData.y >= 350 && scrollData.y < 450) {
-  //   console.log(test);
-  //   // setTest(2);
-  //   return (classScrollShadow =
-  //     "transform bg-gradient-to-b from-black/90 from-50% to-white/0");
-  // }
-  // if (scrollData.y >= 450) {
-  //   return (classScrollShadow =
-  //     "bg-gradient-to-b from-black/90 from-70% to-white/0");
-  // }
-  // if (scrollData.y < 350) {
-  //   return (classScrollShadow = "bg-gradient-to-b from-black/90 to-white/0");
-  // }
-  // };
-  // console.log(scrollData);
-
-  console.log(test);
+  console.log(characters);
   if (animeFUll !== undefined)
     return (
       <section className="w-screen h-screen">
@@ -208,7 +166,53 @@ const AnimeDetail = () => {
               </div>
             </div>
 
-            <div className="flex flex-col space-y-2">
+            <div className="pt-4 grid grid-cols-3 pb-4">
+              <div className="flex flex-col items-center">
+                <p className={titles}>Type</p>
+                <p>{animeFUll.type}</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <p className={titles}>Episodes</p>
+                <p>{animeFUll.episodes}</p>
+              </div>
+              <div className="flex flex-col items-center">
+                <p className={titles}>Duration</p>
+                <p>{animeFUll.duration}</p>
+              </div>
+            </div>
+
+            <div className="w-full py-4 flex flex-col items-center">
+              <p className={titles}>Genres</p>
+              <div className="w-full flex space-x-4 justify-center py-2">
+                {animeFUll.genres.map((element) => {
+                  return (
+                    <p key={element.mal_id} className="text-xl">
+                      {element.name}
+                    </p>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <p className={titles}>Where to watch</p>
+              <div className="py-2 flex flex-col items-center">
+                <div className="w-16 h-16">
+                  <img
+                    src={
+                      "https://seeklogo.com/images/C/crunchyroll-logo-ED92B45335-seeklogo.com.png"
+                    }
+                    alt={animeFUll.streaming[0]?.name}
+                    className="rounded-lg"
+                  />
+                </div>
+                <p className="text-lg font-bold">
+                  {animeFUll.streaming[0]?.name}
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-col space-y-2 py-4">
               <p className={titles}>Synopsis</p>
               <p className="text-justify">
                 {showMore ? text : handleText()}
@@ -227,49 +231,7 @@ const AnimeDetail = () => {
               </p>
             </div>
 
-            <div className="pt-4 flex items-centers justify-between space-x-2">
-              <div className="flex flex-col items-center">
-                <p className={titles}>Type</p>
-                <p>{animeFUll.type}</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <p className={titles}>Episodes</p>
-                <p>{animeFUll.episodes}</p>
-              </div>
-              <div className="flex flex-col items-center">
-                <p className={titles}>Duration</p>
-                <p>{animeFUll.duration}</p>
-              </div>
-            </div>
-
-            <div className="w-full py-4">
-              <p className={titles}>Genres</p>
-              <div className="w-full flex justify-between">
-                {animeFUll.genres.map((element) => {
-                  return <p key={element.mal_id}>{element.name}</p>;
-                })}
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center">
-              <p className={titles}>Where to watch</p>
-              <div className="py-2 flex flex-col items-center">
-                <div className="w-16 h-16">
-                  <img
-                    src={
-                      "https://archive.org/download/417b-vuqe-0p-l/417bVUqe0pL.png"
-                    }
-                    alt={animeFUll.streaming[0]?.name}
-                    className="rounded-lg"
-                  />
-                </div>
-                <p className="text-lg font-bold">
-                  {animeFUll.streaming[0]?.name}
-                </p>
-              </div>
-            </div>
-
-            <div className="">
+            <div className="pt-2">
               <p className={titles}>Characters/Actors</p>
               <div className="w-auto h-80 mt-4 overflow-x-auto overscroll-x-contain flex space-x-4 relative">
                 {/* <div className="w-10 h-full absolute top-0 left-0 flex items-center">
@@ -278,26 +240,49 @@ const AnimeDetail = () => {
                 </div>
               </div> */}
                 {characters.map((element) => {
-                  return (
-                    <div
-                      key={element.character.name}
-                      className="w-48 h-full rounded-lg flex-none"
-                    >
-                      <div className="h-[85%] w-full">
-                        <img
-                          className="w-full h-full object-fill rounded-lg"
-                          src={
-                            element.voice_actors[0]?.person.images.jpg.image_url
-                          }
-                          alt={element.voice_actors[0]?.person.name}
-                        />
+                  if (element.voice_actors.length === 0) {
+                    return (
+                      <div
+                        key={element.character.name}
+                        className="w-48 h-full rounded-lg flex-none"
+                      >
+                        <div className="h-[85%] w-full">
+                          <img
+                            className="w-full h-full object-cover rounded-lg"
+                            src="https://previews.123rf.com/images/blankstock/blankstock1903/blankstock190304614/124535633-no-o-detente-icono-de-informaci%C3%B3n-t%C3%A9cnica-se%C3%B1al-de-instrucci%C3%B3n-prohibido-s%C3%ADmbolo-de-parada-de.jpg"
+                            alt={element.voice_actors[0]?.person.name}
+                          />
+                        </div>
+                        <p className="text-center">{element.character.name}</p>
                       </div>
-                      <p className="text-center">
-                        {element.character.name} /{" "}
-                        {element.voice_actors[0]?.person.name}
-                      </p>
-                    </div>
-                  );
+                    );
+                  } else {
+                    return (
+                      <div
+                        key={element.character.name}
+                        className="w-48 h-full rounded-lg flex-none"
+                      >
+                        <div className="h-[85%] w-full">
+                          <Link
+                            to={`/actordb/${element.voice_actors[0]?.person.name}`}
+                          >
+                            <img
+                              className="w-full h-full object-fill rounded-lg"
+                              src={
+                                element.voice_actors[0]?.person.images.jpg
+                                  .image_url
+                              }
+                              alt={element.voice_actors[0]?.person.name}
+                            />
+                          </Link>
+                        </div>
+                        <p className="text-center">
+                          {element.character.name} /{" "}
+                          {element.voice_actors[0]?.person.name}
+                        </p>
+                      </div>
+                    );
+                  }
                 })}
                 {/* <div className="w-10 h-full absolute top-0 right-0 flex items-center">
                 <div className="w-full h-1/2 bg-white/20 backdrop-blur-xs flex rounded-l-md">

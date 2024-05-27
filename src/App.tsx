@@ -4,6 +4,7 @@ import CategoryMovie from "./Pages/CategoryMovie";
 import AnimeDetail from "./Pages/AnimeDetail";
 import SearchPage from "./Pages/SearchPage";
 import CoverPage from "./Pages/CoverPage";
+import ActorDetail from "./Pages/ActorDetail";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="genre/:category" element={<CategoryMovie />} />
             <Route path="/search" element={<SearchPage />} />
             <Route path="/:name" element={<AnimeDetail />} />
+            <Route path="/actordb/:name" element={<ActorDetail />} />
           </Route>
         </Routes>
       </BrowserRouter>
