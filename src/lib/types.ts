@@ -249,15 +249,15 @@ export type AnimeFULL = {
   streaming: External[];
 };
 
-export interface External {
+type External = {
   name: string;
   url: string;
-}
+};
 
-export interface Theme {
+type Theme = {
   openings: string[];
   endings: string[];
-}
+};
 
 // type useLocation
 
@@ -274,4 +274,45 @@ type Path = {
   pathname: string;
   search: string;
   hash: string;
+};
+
+//type Actor Voice
+
+export type ActorVoice = {
+  mal_id: number;
+  url: string;
+  website_url: null;
+  images: ActorImages;
+  name: string;
+  given_name: string;
+  family_name: string;
+  alternate_names: any[];
+  birthday: Date;
+  favorites: number;
+  about: string;
+  anime: AnimeElement[];
+  manga: any[];
+  voices: Voice[];
+};
+
+type AnimeElement = {
+  position: string;
+  anime: AnimePositions;
+};
+
+type AnimePositions = {
+  mal_id: number;
+  url: string;
+  images: Images;
+  title: string;
+};
+
+type ActorImages = {
+  jpg: Jpg;
+};
+
+type Voice = {
+  role: string;
+  anime: AnimePositions;
+  character: Character;
 };
