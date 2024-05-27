@@ -1,19 +1,14 @@
 import { useLocation, useNavigate, Link } from "react-router-dom";
-import { AnimeFULL, CharacterAnime, Data, DataAnimeFULL } from "../lib/types";
+import {
+  AnimeFULL,
+  CharacterAnime,
+  Data,
+  DataAnimeFULL,
+  Location,
+} from "../lib/types";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import "./AnimeDetail.css";
-
-interface Location<State = number> extends Path {
-  state: State;
-  key: string;
-}
-
-interface Path {
-  pathname: string;
-  search: string;
-  hash: string;
-}
 
 type Scroll = {
   y: number;
@@ -117,7 +112,7 @@ const AnimeDetail = () => {
   };
 
   const titles = "text-xl font-bold";
-  console.log(characters);
+
   if (animeFUll !== undefined)
     return (
       <section className="w-screen h-screen">
@@ -265,6 +260,9 @@ const AnimeDetail = () => {
                         <div className="h-[85%] w-full">
                           <Link
                             to={`/actordb/${element.voice_actors[0]?.person.name}`}
+                            state={{
+                              id: element.voice_actors[0].person.mal_id,
+                            }}
                           >
                             <img
                               className="w-full h-full object-fill rounded-lg"
