@@ -278,6 +278,10 @@ type Path = {
 
 //type Actor Voice
 
+export type ActorVoiceData = {
+  data: ActorVoice;
+};
+
 export type ActorVoice = {
   mal_id: number;
   url: string;
@@ -287,7 +291,7 @@ export type ActorVoice = {
   given_name: string;
   family_name: string;
   alternate_names: any[];
-  birthday: Date;
+  birthday: string;
   favorites: number;
   about: string;
   anime: AnimeElement[];

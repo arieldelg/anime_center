@@ -78,7 +78,7 @@ const AnimeRecomendations = ({
         key={element.mal_id}
         className="flex flex-col items-center w-full h-full"
       >
-        <Link to={`/${element.title}`} state={element.mal_id}>
+        <Link to={`/${element.title}`} state={{ id: element.mal_id }}>
           <div className="h-[287px] flex">
             <img
               src={element.images.jpg.image_url}

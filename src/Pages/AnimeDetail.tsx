@@ -85,7 +85,6 @@ const AnimeDetail = () => {
     );
     Promise.all([request1, request2])
       .then(([data1, data2]: [Data, DataAnimeFULL]) => {
-        console.log(data2.data);
         setCharacters(data1.data);
         setAnimeFULL(data2.data);
         let newText: string = data2.data.synopsis;
