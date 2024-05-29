@@ -9,6 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { ChevronDownIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import "./AnimeDetail.css";
+import { titles } from "../stylesTailwind/variables";
 
 type Scroll = {
   y: number;
@@ -109,8 +110,6 @@ const AnimeDetail = () => {
     }
     return `${trimText}...   `;
   };
-
-  const titles = "text-xl font-bold";
 
   if (animeFUll !== undefined)
     return (
