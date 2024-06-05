@@ -1,7 +1,8 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ActorVoice, ActorVoiceData, Location } from "../lib/types";
 import { useEffect, useState } from "react";
 import { titles } from "../stylesTailwind/variables";
+import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
 
 type About = {
   Height?: string;
@@ -17,10 +18,12 @@ type About = {
 const ActorDetail = () => {
   const url: Location = useLocation();
   const { id } = url.state;
+  const navigate = useNavigate();
   const [actorData, setActorData] = useState<ActorVoice>();
   const [birthday, setBirthday] = useState<string>("");
   const [age, setAge] = useState<number | "No info">(0);
   const [actorAbout, setActorAbout] = useState<About | "No info">();
+
   useEffect(() => {
     fetch(`https://api.jikan.moe/v4/people/${id}/full`)
       .then((res) => {
@@ -92,9 +95,9 @@ const ActorDetail = () => {
       })
       .catch((error) => console.log(error));
   }, []);
+
   const handleMapObject = () => {
     const mapObject: { title: string; value: string | undefined }[] = [];
-
     let key: keyof About;
     if (actorAbout !== "No info") {
       for (key in actorAbout) {
@@ -115,7 +118,13 @@ const ActorDetail = () => {
   if (actorData !== undefined && actorAbout !== undefined)
     return (
       <section className="w-full h-full px-4">
-        <div className="w-full h-96 flex items-center justify-center">
+        <div className="bg-gray-800 w-full h-14 fixed top-0 left-0 flex items-center space-x-4 px-4">
+          <button>
+            <ArrowUturnLeftIcon className="w-8" onClick={() => navigate(-1)} />
+          </button>
+          <h1 className="text-2xl">Actor</h1>
+        </div>
+        <div className="w-full h-96 flex items-center justify-center mt-14">
           <img src={actorData?.images.jpg.image_url} alt={actorData?.name} />
         </div>
         <div className=" w-full grid grid-cols-3">
