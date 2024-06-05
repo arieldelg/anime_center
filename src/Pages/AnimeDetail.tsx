@@ -226,15 +226,15 @@ const AnimeDetail = () => {
 
             <div className="pt-2">
               <p className={titles}>Characters/Actors</p>
-              <div className="w-auto h-80 mt-4 overflow-x-auto overscroll-x-contain flex space-x-4 relative">
+              <div className="w-auto h-[298px] mt-4 overflow-x-auto overscroll-x-contain flex space-x-4 relative">
                 {characters.map((element) => {
                   if (element.voice_actors.length === 0) {
                     return (
                       <div
                         key={element.character.name}
-                        className="w-48 h-full rounded-lg flex-none"
+                        className="w-[148px] h-full rounded-lg flex-none"
                       >
-                        <div className="h-[85%] w-full">
+                        <div className="h-[75%] w-full">
                           <img
                             className="w-full h-full object-cover rounded-lg"
                             src="https://previews.123rf.com/images/blankstock/blankstock1903/blankstock190304614/124535633-no-o-detente-icono-de-informaci%C3%B3n-t%C3%A9cnica-se%C3%B1al-de-instrucci%C3%B3n-prohibido-s%C3%ADmbolo-de-parada-de.jpg"
@@ -246,11 +246,13 @@ const AnimeDetail = () => {
                     );
                   } else {
                     return (
+                      // here controls the width
                       <div
                         key={element.character.name}
-                        className="w-48 h-full rounded-lg flex-none"
+                        className=" w-[148px] h-full rounded-lg flex-none"
                       >
-                        <div className="h-[85%] w-full">
+                        {/* here controls the height */}
+                        <div className="h-[75%] w-full">
                           <Link
                             to={`/actordb/${element.voice_actors[0]?.person.name}`}
                             state={{
