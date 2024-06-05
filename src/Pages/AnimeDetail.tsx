@@ -227,11 +227,6 @@ const AnimeDetail = () => {
             <div className="pt-2">
               <p className={titles}>Characters/Actors</p>
               <div className="w-auto h-80 mt-4 overflow-x-auto overscroll-x-contain flex space-x-4 relative">
-                {/* <div className="w-10 h-full absolute top-0 left-0 flex items-center">
-                <div className="w-full h-1/2 bg-white/20 backdrop-blur-xs flex rounded-r-md">
-                  <ChevronLeftIcon className="w-10 text-black" />
-                </div>
-              </div> */}
                 {characters.map((element) => {
                   if (element.voice_actors.length === 0) {
                     return (
@@ -280,11 +275,6 @@ const AnimeDetail = () => {
                     );
                   }
                 })}
-                {/* <div className="w-10 h-full absolute top-0 right-0 flex items-center">
-                <div className="w-full h-1/2 bg-white/20 backdrop-blur-xs flex rounded-l-md">
-                  <ChevronRightIcon className="w-10 text-black" />
-                </div>
-              </div> */}
               </div>
             </div>
           </div>

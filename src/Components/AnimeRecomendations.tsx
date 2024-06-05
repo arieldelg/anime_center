@@ -2,28 +2,6 @@ import { useCallback, useRef } from "react";
 import { TAnimeGenerics, TAnimePage } from "../lib/types";
 import React from "react";
 import { Link } from "react-router-dom";
-//type for Link
-// declare function Link(props: LinkProps): React.ReactElement;
-
-// interface LinkProps
-//   extends Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, "href"> {
-//   to: To;
-//   preventScrollReset?: boolean;
-//   relative?: "route" | "path";
-//   reloadDocument?: boolean;
-//   replace?: boolean;
-//   state?: TAnimeGenerics;
-//   unstable_viewTransition?: boolean;
-// }
-
-// type To = string | Partial<Path>;
-
-// interface Path {
-//   pathname: string;
-//   search: string;
-//   hash: string;
-// }
-//
 
 type AnimeRecomendationsProps = {
   allInfo: TAnimePage;
