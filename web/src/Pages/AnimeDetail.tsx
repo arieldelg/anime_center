@@ -111,6 +111,16 @@ const AnimeDetail = () => {
     return `${trimText}...   `;
   };
 
+  const handleBackend = (id: number) => {
+    fetch("http://localhost:5174/api/test", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id: id }),
+    });
+  };
+
   if (animeFUll !== undefined)
     return (
       <section className="w-screen h-screen">
@@ -258,6 +268,11 @@ const AnimeDetail = () => {
                             state={{
                               id: element.voice_actors[0].person.mal_id,
                             }}
+                            onClick={() =>
+                              handleBackend(
+                                element.voice_actors[0].person.mal_id
+                              )
+                            }
                           >
                             <img
                               className="w-full h-full object-fill rounded-lg"

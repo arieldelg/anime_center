@@ -12,8 +12,12 @@ app.get("/api", cors(), async (req, res) => {
   res.send({ message: "Hola desde el servidor!" });
 });
 
-app.get("/api/test", cors(), async (req, res) => {
-  res.send({ message: "Esto es una prueba!" });
+app.post("/api/test", (req, res) => {
+  let { id } = req.body;
+  console.log(id);
+  // fetch(`https://api.jikan.moe/v4/people/${id}/full`)
+  // res.send({ message: "Esto es una prueba!" });
+  res.send({ data: "puto" });
 });
 
 app.listen(PORT, () => {

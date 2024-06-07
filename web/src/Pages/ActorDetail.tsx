@@ -186,7 +186,7 @@ const ActorDetail = () => {
           </div>
           {handleTable()?.map((element) => {
             return (
-              <div className="w-full">
+              <div className="w-full" key={element.anime.mal_id}>
                 <div className="flex justify-center">
                   <img
                     src={element.anime.images.jpg.image_url}
