@@ -220,12 +220,7 @@ const ActorDetail = () => {
           })}
         </div>
 
-        <div>
-          <h1>Filter By:</h1>
-          <p>Role</p>
-          <p>Anime</p>
-          <p></p>
-        </div>
+        <div></div>
       </section>
     );
 };
