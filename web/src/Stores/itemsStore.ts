@@ -1,5 +1,5 @@
 import { StateCreator } from "zustand";
-import { Tdata } from "../lib/types";
+import { Tdata } from "../../../lib/types";
 
 export interface TitemStore {
   genrePage: number;

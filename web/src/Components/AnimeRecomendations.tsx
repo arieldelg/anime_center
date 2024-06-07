@@ -1,5 +1,5 @@
 import { useCallback, useRef } from "react";
-import { TAnimeGenerics, TAnimePage } from "../lib/types";
+import { TAnimeGenerics, TAnimePage } from "../../../lib/types";
 import React from "react";
 import { Link } from "react-router-dom";
 

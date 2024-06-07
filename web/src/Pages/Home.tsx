@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import NavBar from "../Components/NavBar";
-import { Tdata } from "../lib/types";
+import { Tdata } from "@backend/types";
 import { useBoundStore } from "../Stores/boundleStore";
 
 const Home = () => {

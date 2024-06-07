@@ -1,5 +1,5 @@
 import { To, useNavigate } from "react-router-dom";
-import { Tdata } from "../lib/types";
+import { Tdata } from "../../../lib/types";
 import { useBoundStore } from "../Stores/boundleStore";
 
 //custom types

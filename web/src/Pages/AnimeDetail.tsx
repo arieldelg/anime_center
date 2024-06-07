@@ -5,7 +5,7 @@ import {
   Data,
   DataAnimeFULL,
   Location,
-} from "../lib/types";
+} from "../../../lib/types";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import "./AnimeDetail.css";
@@ -112,7 +112,7 @@ const AnimeDetail = () => {
   };
 
   const handleBackend = (id: number) => {
-    fetch("http://localhost:5174/api/test", {
+    fetch("http://localhost:5174/api/actorId", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

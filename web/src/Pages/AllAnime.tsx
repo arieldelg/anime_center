@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import Pagination from "../Components/Pagination";
-import { TAnimeGenerics, TcategoryMovieData } from "../lib/types";
+import { TAnimeGenerics, TcategoryMovieData } from "../../../lib/types";
 
 type TallAnimeProps = {
   anime: TAnimeGenerics[];

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useBoundStore } from "../Stores/boundleStore";
-import { Tpagination } from "../lib/types";
+import { Tpagination } from "../../../lib/types";
 
 type TpaginationProps = {
   pagination: Tpagination;

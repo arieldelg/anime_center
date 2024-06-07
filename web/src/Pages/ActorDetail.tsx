@@ -1,5 +1,10 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { ActorVoice, ActorVoiceData, Location, Voice } from "../lib/types";
+import {
+  ActorVoice,
+  ActorVoiceData,
+  Location,
+  Voice,
+} from "../../../lib/types";
 import { useEffect, useState } from "react";
 import { titles } from "../stylesTailwind/variables";
 import {

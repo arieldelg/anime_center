@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import GenresComponentCellphone from "../Components/GenresComponentCellphone";
 import AnimeRecomendations from "../Components/AnimeRecomendations";
-import { TAnimeGenerics, TAnimePage } from "../lib/types";
+import { TAnimeGenerics, TAnimePage } from "../../../lib/types";
 
 const AnimePage = () => {
   const [recommendations, setRecommendations] = useState<TAnimeGenerics[]>([]);

@@ -1,6 +1,6 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { useBoundStore } from "../Stores/boundleStore";
-import { Tdata } from "../lib/types";
+import { Tdata } from "../../../lib/types";
 
 // custom types
 

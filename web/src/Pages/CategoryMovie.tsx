@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import { paginationArray } from "../Functions/Functions.ts";
 import AllAnime from "./AllAnime";
 import { useBoundStore } from "../Stores/boundleStore.js";
-import { TcategoryMovieData } from "../lib/types.ts";
+import { TcategoryMovieData } from "../../../lib/types.ts";
 
 const CategoryMovie = () => {
   const url = useLocation();
