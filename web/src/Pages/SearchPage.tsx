@@ -3,7 +3,7 @@ import { useDebounce } from "use-debounce";
 import { paginationArray } from "../Functions/Functions.ts";
 import AllAnime from "./AllAnime";
 import { useBoundStore } from "../Stores/boundleStore.js";
-import { TAnimeGenerics, TSearchAnimeData } from "../../../lib/types.ts";
+import { TAnimeGenerics, TSearchAnimeData } from "../../../api/src/lib/types";
 
 const SearchPage = () => {
   const genrePage = useBoundStore((state) => state.genrePage);
