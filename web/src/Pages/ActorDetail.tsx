@@ -61,24 +61,12 @@ const ActorDetail = () => {
   };
 
   const handleTable = () => {
-    // let newArray: Voice[] = [];
     const sortArray = actorData?.voices.sort((a, b) =>
       a.role.localeCompare(b.role)
     );
-    // sortArray?.map((element1, index) => {
-    //   if (index === 0) {
-    //     newArray.push(element1);
-    //   } else {
-    //     newArray.map((element) => {
-    //       console.log(element);
-    //     });
-    //   }
-    // });
-    console.log(sortArray);
-    // console.log(newArray);
     return sortArray;
   };
-  // handleTable();
+
   if (actorData !== undefined && actorAbout !== undefined)
     return (
       <section className="w-full h-full px-4">
