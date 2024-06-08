@@ -50,7 +50,7 @@ const Home = () => {
           <NavBar open={open} setOpen={setOpen} />
         </>
       ) : (
-        <p>Error en el Navbar</p>
+        <p className="max-sm:hidden">Error en el Navbar</p>
       )}
       <main
         className="w-screen h-screen lg:max-w-7xl lg:m-auto "

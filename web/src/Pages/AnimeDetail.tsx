@@ -5,7 +5,7 @@ import {
   Data,
   DataAnimeFULL,
   Location,
-} from "../../../lib/types";
+} from "../../../api/src/lib/types";
 import { useEffect, useState } from "react";
 import { ChevronDownIcon, ArrowLeftIcon } from "@heroicons/react/24/solid";
 import "./AnimeDetail.css";
@@ -109,16 +109,6 @@ const AnimeDetail = () => {
       trimText = text.substring(0, 250);
     }
     return `${trimText}...   `;
-  };
-
-  const handleBackend = (id: number) => {
-    fetch("http://localhost:5174/api/actorId", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ id: id }),
-    });
   };
 
   if (animeFUll !== undefined)
@@ -268,11 +258,6 @@ const AnimeDetail = () => {
                             state={{
                               id: element.voice_actors[0].person.mal_id,
                             }}
-                            onClick={() =>
-                              handleBackend(
-                                element.voice_actors[0].person.mal_id
-                              )
-                            }
                           >
                             <img
                               className="w-full h-full object-fill rounded-lg"

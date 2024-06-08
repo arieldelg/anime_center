@@ -1,10 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import {
-  ActorVoice,
-  ActorVoiceData,
   Location,
   Voice,
-} from "../../../lib/types";
+  About,
+  ActorClient,
+  infoActorType,
+} from "../../../api/src/lib/types";
 import { useEffect, useState } from "react";
 import { titles } from "../stylesTailwind/variables";
 import {
@@ -12,98 +13,32 @@ import {
   AdjustmentsHorizontalIcon,
 } from "@heroicons/react/24/solid";
 
-type About = {
-  Height?: string;
-  Hobbies?: string;
-  Hometown: string;
-  Instagram?: string;
-  Profile?: string;
-  Skills_and_Abilities?: string;
-  Twitter: string;
-  ["Personal info"]: string;
-};
-
 const ActorDetail = () => {
   const url: Location = useLocation();
   const { id } = url.state;
   const navigate = useNavigate();
-  const [actorData, setActorData] = useState<ActorVoice>();
+  const [actorData, setActorData] = useState<infoActorType>();
   const [birthday, setBirthday] = useState<string>("");
   const [age, setAge] = useState<number | "No info">(0);
   const [actorAbout, setActorAbout] = useState<About | "No info">();
   const [voices, setVoices] = useState<Voice[] | undefined>();
 
   useEffect(() => {
-    fetch(`https://api.jikan.moe/v4/people/${id}/full`)
-      .then((res) => {
-        if (res.status >= 400 && res.status < 500)
-          console.log("ERROR ON THE RESPONSE FETCH ACTOR VOICE");
-        if (!res.ok) return;
-        return res.json();
-      })
-      .then((data: ActorVoiceData) => {
-        setActorData(data.data);
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, []);
 
-        if (data.data.birthday !== null) {
-          const datesplit = data.data.birthday.split("T");
-          const dayMonthYear = datesplit[0];
-          const day = dayMonthYear.split("-")[2];
-          const month = dayMonthYear.split("-")[1];
-          const year = dayMonthYear.split("-")[0];
-          const nowDate = new Date();
-          setBirthday(`${day}/${month}/${year}`);
-          const restYear = nowDate.getFullYear() - Number(year);
-          const actualMonth = nowDate.getMonth();
-          if (actualMonth < Number(month)) {
-            setAge(restYear - 1);
-          } else {
-            setAge(restYear);
-          }
-        } else {
-          setAge("No info");
-          setBirthday("No info");
-        }
-        if (data.data.about !== null) {
-          const infoSplit = data.data.about.split("\n");
-          let object = {} as About;
-          infoSplit.forEach((element) => {
-            let newSplit = [];
-            if (!element.includes(": ") && element.length > 0) {
-              object = {
-                ...object,
-                "Personal info": element,
-              };
-            } else {
-              newSplit = element.split(": ");
-              const key = newSplit[0];
-              if (newSplit[0].length > 100) {
-                const newJoin = newSplit.join(": ");
-                object = {
-                  ...object,
-                  "Personal info": newJoin,
-                };
-              } else if (key.length !== 0 && !key.includes("Profile")) {
-                if (key.includes("&amp;")) {
-                  const newKey = key.replace("&amp;", "&");
-                  object = {
-                    ...object,
-                    [newKey]: newSplit[1].trimStart(),
-                  };
-                } else {
-                  object = {
-                    ...object,
-                    [key]: newSplit[1].trimStart(),
-                  };
-                }
-              }
-            }
-          });
-          setActorAbout(object);
-        } else {
-          setActorAbout("No info");
-        }
-      })
-      .catch((error) => console.log(error));
+  useEffect(() => {
+    fetch(`http://localhost:5174/api/${id}`)
+      .then((res) => res.json())
+      .then((data: ActorClient) => {
+        console.log(data);
+        const { actorAbout, age, birthday, infoActor } = data;
+        setBirthday(birthday);
+        setAge(age);
+        setActorAbout(actorAbout);
+        setActorData(infoActor);
+      });
   }, []);
 
   const handleMapObject = () => {
@@ -126,17 +61,28 @@ const ActorDetail = () => {
   };
 
   const handleTable = () => {
-    const newArray = actorData?.voices.sort((a, b) =>
+    // let newArray: Voice[] = [];
+    const sortArray = actorData?.voices.sort((a, b) =>
       a.role.localeCompare(b.role)
     );
-    console.log(newArray);
-    return newArray;
+    // sortArray?.map((element1, index) => {
+    //   if (index === 0) {
+    //     newArray.push(element1);
+    //   } else {
+    //     newArray.map((element) => {
+    //       console.log(element);
+    //     });
+    //   }
+    // });
+    console.log(sortArray);
+    // console.log(newArray);
+    return sortArray;
   };
-
+  // handleTable();
   if (actorData !== undefined && actorAbout !== undefined)
     return (
       <section className="w-full h-full px-4">
-        <div className="bg-gray-800 w-full h-14 fixed top-0 left-0 flex items-center space-x-4 px-4">
+        <div className="bg-gray-800 w-full h-14 fixed top-0 left-0 flex items-center space-x-4 px-4 z-20">
           <button>
             <ArrowUturnLeftIcon className="w-8" onClick={() => navigate(-1)} />
           </button>
@@ -169,12 +115,6 @@ const ActorDetail = () => {
                       <h2 className={`${titles} text-center`}>
                         {element.title}
                       </h2>
-                      {/* {element.title === "Instagram" ||
-                  element.title === "Twitter" ? (
-                    <Link to={`https://${element.value}`}>click</Link>
-                  ) : (
-                    <p>sdlkads</p>
-                  )} */}
                       <p className="text-center text-base">{element.value}</p>
                     </div>
                   );
@@ -209,15 +149,35 @@ const ActorDetail = () => {
                     </tr>
                   </thead>
                   <tbody className="h-[122px]">
-                    <tr>
-                      <td scope="" className="text-center bg-gray-800">
-                        {element.role}
-                      </td>
-                      <td className="text-center">{element.anime.title}</td>
-                      <td className="text-center bg-gray-800">
-                        {element.character.name}
-                      </td>
-                    </tr>
+                    {element.roleArray !== undefined ? (
+                      element.roleArray.map((element2, index) => {
+                        return (
+                          <tr key={index} className="">
+                            <td className="text-center bg-gray-800">
+                              {element2}
+                            </td>
+                            <td className="text-center">
+                              {element.anime.title}
+                            </td>
+                            {element.voiceArray !== undefined && (
+                              <td className="text-center bg-gray-800">
+                                {element.voiceArray[index]}
+                              </td>
+                            )}
+                          </tr>
+                        );
+                      })
+                    ) : (
+                      <tr>
+                        <td scope="row" className="text-center bg-gray-800">
+                          {element.role}
+                        </td>
+                        <td className="text-center">{element.anime.title}</td>
+                        <td className="text-center bg-gray-800">
+                          {element.character.name}
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>

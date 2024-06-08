@@ -322,6 +322,40 @@ type ActorImages = {
 
 export type Voice = {
   role: string;
+  roleArray?: string[];
   anime: AnimePositions;
   character: Character;
+  voiceArray?: string[];
+};
+
+// type ActorAbout
+
+export type About = {
+  Height?: string;
+  Hobbies?: string;
+  Hometown: string;
+  Instagram?: string;
+  Profile?: string;
+  Skills_and_Abilities?: string;
+  Twitter: string;
+  ["Personal info"]: string;
+};
+
+export type ActorClient = {
+  actorAbout: About;
+  age: number;
+  birthday: string;
+  infoActor: infoActorType;
+};
+
+export type infoActorType = {
+  id: number;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+  name: string;
+  popularity: number;
+  voices: Voice[];
 };
