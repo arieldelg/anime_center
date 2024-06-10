@@ -84,27 +84,30 @@ app.get("/api/:actorId", async (req, res) => {
   }
 
   const newArray: Voice[] = [];
-  data.voices.forEach((element, index1) => {
+  const dataSorted = data.voices.sort((a, b) => a.role.localeCompare(b.role));
+
+  dataSorted.forEach((element, index1) => {
     let indexArray = newArray.length;
     if (newArray.length === 0) {
       newArray.push(element);
     }
 
-    if (index1 < data.voices.length) {
+    if (index1 < dataSorted.length) {
       for (let index = indexArray; indexArray > 0; index--) {
-        if (element.anime.mal_id === newArray[indexArray - 1].anime.mal_id) {
+        if (element.anime.mal_id === newArray[index - 1].anime.mal_id) {
+          console.log(element);
+          console.log(newArray[index - 1]);
           newArray[index - 1].roleArray = [
-            element.role,
             newArray[index - 1].role,
+            element.role,
           ];
           newArray[index - 1].voiceArray = [
-            element.character.name,
             newArray[index - 1].character.name,
+            element.character.name,
           ];
-          newArray[index - 1].role = "Main";
           return;
         } else {
-          if (index - 1 <= 0) {
+          if (index - 1 === 0) {
             newArray.push(element);
             return;
           }
@@ -122,10 +125,6 @@ app.get("/api/:actorId", async (req, res) => {
   };
 
   res.json({ actorAbout, age, birthday, infoActor });
-  // res.json({ data });
-
-  // })
-  // .catch((error) => console.log(error));
 });
 
 app.listen(PORT, () => {

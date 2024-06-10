@@ -60,12 +60,13 @@ const ActorDetail = () => {
     return mapObject;
   };
 
-  const handleTable = () => {
-    const sortArray = actorData?.voices.sort((a, b) =>
-      a.role.localeCompare(b.role)
-    );
-    return sortArray;
-  };
+  console.log(actorData);
+  // const handleTable = () => {
+  //   const sortArray = actorData?.voices.sort((a, b) =>
+  //     a.role.localeCompare(b.role)
+  //   );
+  //   return sortArray;
+  // };
 
   if (actorData !== undefined && actorAbout !== undefined)
     return (
@@ -117,7 +118,7 @@ const ActorDetail = () => {
               <AdjustmentsHorizontalIcon className="w-8" />
             </button>
           </div>
-          {handleTable()?.map((element) => {
+          {actorData.voices.map((element) => {
             return (
               <div className="w-full" key={element.anime.mal_id}>
                 <div className="flex justify-center">
