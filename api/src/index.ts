@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import { About, Voice } from "./lib/types";
 import { httpClientData } from "./plugins/http-client.plugins";
+import { buildLogger } from "./plugins/logger.puglin";
+const logger = buildLogger("index.ts");
 
 const app = express();
 const PORT = process.env.PORT || 5174;
