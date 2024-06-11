@@ -3,7 +3,11 @@ import cors from "cors";
 import { About, Voice } from "./lib/types";
 import { httpClientData } from "./plugins/http-client.plugins";
 import { buildLogger } from "./plugins/logger.puglin";
+import { findHeroes } from "./app";
+
 const logger = buildLogger("index.ts");
+const find = findHeroes(4);
+logger.log(find);
 
 const app = express();
 const PORT = process.env.PORT || 5174;

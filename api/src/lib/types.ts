@@ -359,3 +359,11 @@ export type infoActorType = {
   popularity: number;
   voices: Voice[];
 };
+
+// !test
+
+export type Heroes = {
+  id: number;
+  name: string;
+  owner: string;
+};

@@ -12,7 +12,13 @@ const logger = createLogger({
 
 const buildLogger = (service: string) => {
   return {
-    log: (message: any) => logger.log("info", { message, service }),
+    log: (message: any) => {
+      let newMessage = message;
+      if (message === undefined) {
+        newMessage = "indefinido Papu";
+      }
+      logger.log("info", { message: newMessage, service });
+    },
     error: (message: any) => logger.error("info", { message, service }),
   };
 };

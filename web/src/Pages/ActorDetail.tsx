@@ -21,7 +21,7 @@ const ActorDetail = () => {
   const [birthday, setBirthday] = useState<string>("");
   const [age, setAge] = useState<number | "No info">(0);
   const [actorAbout, setActorAbout] = useState<About | "No info">();
-  const [voices, setVoices] = useState<Voice[] | undefined>();
+  // const [voices, setVoices] = useState<Voice[] | undefined>();
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
