@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
-import { About, ActorVoiceData, Voice } from "./lib/types";
+import { About, Voice } from "./lib/types";
+import { httpClientData } from "./plugins/http-client.plugins";
 
 const app = express();
 const PORT = process.env.PORT || 5174;
@@ -16,14 +17,19 @@ app.get("/api", cors(), async (_, res) => {
 app.get("/api/:actorId", async (req, res) => {
   let { actorId } = req.params;
 
-  const results = await fetch(
+  // ! fetching data of actor
+
+  const data = await httpClientData.actorFullData(
     `https://api.jikan.moe/v4/people/${actorId}/full`
   );
-  const { data }: ActorVoiceData = await results.json();
+
+  // ! variables that going to change
 
   let actorAbout: About | "No info";
   let age: number | "No info";
   let birthday: string | "No info";
+
+  // ! conditional to calculate Birthday
   if (data.birthday !== null) {
     const datesplit = data.birthday.split("T");
     const dayMonthYear = datesplit[0];
@@ -43,6 +49,8 @@ app.get("/api/:actorId", async (req, res) => {
     age = "No info";
     birthday = "No info";
   }
+
+  // ! conditional if there is no about info and spliting about info and returning an object of it
   if (data.about !== null) {
     const infoSplit = data.about.split("\n");
     let object = {} as About;
@@ -83,11 +91,14 @@ app.get("/api/:actorId", async (req, res) => {
     actorAbout = "No info";
   }
 
+  // ! function to sort and check if repeated id Anime exist
   const newArray: Voice[] = [];
+
   const dataSorted = data.voices.sort((a, b) => a.role.localeCompare(b.role));
 
   dataSorted.forEach((element, index1) => {
     let indexArray = newArray.length;
+
     if (newArray.length === 0) {
       newArray.push(element);
     }
@@ -95,8 +106,6 @@ app.get("/api/:actorId", async (req, res) => {
     if (index1 < dataSorted.length) {
       for (let index = indexArray; indexArray > 0; index--) {
         if (element.anime.mal_id === newArray[index - 1].anime.mal_id) {
-          console.log(element);
-          console.log(newArray[index - 1]);
           newArray[index - 1].roleArray = [
             newArray[index - 1].role,
             element.role,
@@ -116,6 +125,7 @@ app.get("/api/:actorId", async (req, res) => {
     }
   });
 
+  // ! object to return all info
   const infoActor = {
     id: data.mal_id,
     images: data.images,
@@ -124,6 +134,7 @@ app.get("/api/:actorId", async (req, res) => {
     voices: newArray,
   };
 
+  // ! returning response
   res.json({ actorAbout, age, birthday, infoActor });
 });
 
