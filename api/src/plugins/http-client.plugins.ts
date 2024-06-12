@@ -1,9 +1,7 @@
-import { ActorVoice, ActorVoiceData } from "../lib/types";
-
 const httpClientData = {
-  actorFullData: async (url: string): Promise<ActorVoice> => {
+  get: async (url: string) => {
     const response = await fetch(url);
-    const { data }: ActorVoiceData = await response.json();
+    const { data } = await response.json();
     return data;
   },
 };

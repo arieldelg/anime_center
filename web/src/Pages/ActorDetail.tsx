@@ -1,7 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import {
   Location,
-  Voice,
   About,
   ActorClient,
   infoActorType,
@@ -21,7 +20,7 @@ const ActorDetail = () => {
   const [birthday, setBirthday] = useState<string>("");
   const [age, setAge] = useState<number | "No info">(0);
   const [actorAbout, setActorAbout] = useState<About | "No info">();
-  // const [voices, setVoices] = useState<Voice[] | undefined>();
+  const [open, setOpen] = useState<Boolean>(false);
 
   useEffect(() => {
     document.documentElement.scrollTop = 0;
@@ -39,6 +38,12 @@ const ActorDetail = () => {
         setActorAbout(actorAbout);
         setActorData(infoActor);
       });
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:5174/api/anime/${id}`)
+      .then((resp) => resp.json())
+      .then((data) => console.log(data));
   }, []);
 
   const handleMapObject = () => {
@@ -59,14 +64,6 @@ const ActorDetail = () => {
     }
     return mapObject;
   };
-
-  console.log(actorData);
-  // const handleTable = () => {
-  //   const sortArray = actorData?.voices.sort((a, b) =>
-  //     a.role.localeCompare(b.role)
-  //   );
-  //   return sortArray;
-  // };
 
   if (actorData !== undefined && actorAbout !== undefined)
     return (
@@ -114,9 +111,20 @@ const ActorDetail = () => {
         <div className="w-full space-y-4">
           <div className="w-full border-b-2 border-white/20 relative">
             <h1 className={`${titles}  w-full text-center py-2`}>Voices</h1>
-            <button className="absolute top-2 right-0">
+            <button
+              className="absolute top-2 right-0"
+              onClick={() => setOpen((prev) => !prev)}
+            >
               <AdjustmentsHorizontalIcon className="w-8" />
             </button>
+            {open && (
+              <div className="absolute w-40 h-20 top-10 right-0 rounded-md bg-color-anime border border-white/20">
+                <h1>Filter By:</h1>
+                <div>
+                  <p>Popularity</p>
+                </div>
+              </div>
+            )}
           </div>
           {actorData.voices.map((element) => {
             return (
