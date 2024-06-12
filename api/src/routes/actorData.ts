@@ -1,6 +1,6 @@
 import express from "express";
-import { dataActor } from "../services";
-import { About, Voice } from "../lib/types";
+import { dataActor, dataPopularityAnime } from "../services";
+import { About, Voice, infoActorType } from "../lib/types";
 
 const router = express.Router();
 
@@ -113,12 +113,18 @@ router.get("/:id", async (req, res) => {
     }
   });
 
+  // ! return array of id Anime Actor Voice
+  let idArray: number[] = [];
+  data.voices.forEach((element) => {
+    idArray.push(element.anime.mal_id);
+  });
+
   // ! object to return all info
-  const infoActor = {
+  const infoActor: infoActorType = {
     id: data.mal_id,
     images: data.images,
     name: data.name,
-    popularity: data.favorites,
+    popularity: idArray,
     voices: newArray,
   };
 
@@ -126,10 +132,25 @@ router.get("/:id", async (req, res) => {
   res.json({ actorAbout, age, birthday, infoActor });
 });
 
-router.get("/anime/:id", async (req, res) => {
-  const { id } = req.params;
-  console.log(id);
-  res.send(id);
+router.post("/anime", async (req, res) => {
+  const data = req.body;
+  const popularity = await dataPopularityAnime(data);
+  console.log(popularity, "undefined");
+  // const data = await dataActor(id);
+
+  // const arrayAnime = () => {
+  //   let idAnime: number[] = [];
+  //   data.voices.forEach((element) => {
+  //     idAnime.push(element.anime.mal_id);
+  //   });
+  //   return idAnime;
+  // };
+  // const print = arrayAnime();
+
+  // const newArray = await dataPopularityAnime(print);
+  // console.log(newArray);
+
+  res.send("hola");
 });
 
 router.post("/", async (_, res) => {

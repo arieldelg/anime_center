@@ -22,7 +22,7 @@ export type TSearchAnimeData = {
 
 export type TAnimePage = {
   data: TAnimeGenerics[];
-  pagination: Tpagination;
+  pagination?: Tpagination;
 };
 
 export type Tpagination = {
@@ -356,7 +356,7 @@ export type infoActorType = {
     };
   };
   name: string;
-  popularity: number;
+  popularity: number[];
   voices: Voice[];
 };
 

@@ -1,4 +1,4 @@
-import { useLocation, useNavigate } from "react-router-dom";
+import { json, useLocation, useNavigate } from "react-router-dom";
 import {
   Location,
   About,
@@ -37,14 +37,24 @@ const ActorDetail = () => {
         setAge(age);
         setActorAbout(actorAbout);
         setActorData(infoActor);
+        return infoActor.popularity;
+      })
+      .then((data) => {
+        fetch(`http://localhost:5174/api/anime`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        });
       });
   }, []);
 
-  useEffect(() => {
-    fetch(`http://localhost:5174/api/anime/${id}`)
-      .then((resp) => resp.json())
-      .then((data) => console.log(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch(`http://localhost:5174/api/anime/${id}`)
+  //     .then((resp) => resp.json())
+  //     .then((data) => console.log(data));
+  // }, []);
 
   const handleMapObject = () => {
     const mapObject: { title: string; value: string | undefined }[] = [];

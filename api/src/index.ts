@@ -3,6 +3,7 @@ import cors from "cors";
 import routeActor from "./routes/actorData";
 // import { About, Voice } from "./lib/types";
 // import { dataActor } from "./services";
+// import yarg from "./plugins/yargs.plugins";
 
 const app = express();
 const PORT = process.env.PORT || 5174;
@@ -17,11 +18,14 @@ app.get("/api", cors(), async (_, res) => {
 
 app.use("/api", routeActor);
 
-app.use("/api", routeActor);
+// app.use("/api", routeActor);
 
+// console.log(yarg);
 // app.use('/api)
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
   console.log("dasda");
 });
+
+console.log(process.argv);
